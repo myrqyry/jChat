@@ -1,3 +1,4 @@
-#example {
-    text-shadow: 2px 2px 6px black;
+#example,
+.chat_line {
+    text-shadow: var(--chat-text-shadow, 2px 2px 6px black);
 }

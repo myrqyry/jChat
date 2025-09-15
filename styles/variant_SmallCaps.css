@@ -1,3 +1,4 @@
-#example {
-    font-variant: small-caps;
+#example,
+.chat_line {
+    font-variant: var(--chat-font-variant, small-caps);
 }

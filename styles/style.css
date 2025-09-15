@@ -12,6 +12,32 @@ body {
     overflow-x: hidden;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --chat-font-size: 48px;
+    --chat-line-height: 75px;
+    --chat-badge-size: 40px;
+    --chat-badge-margin-right: 5px;
+    --chat-badge-margin-bottom: 8px;
+    --chat-badge-last-margin-right: 8px;
+    --chat-colon-margin-right: 20px;
+    --chat-cheer-font-weight: 500;
+    --chat-cheer-margin-right: 10px;
+    --chat-cheer-emote-max-height: 60px;
+    --chat-cheer-emote-margin-bottom: -15px;
+    --chat-emote-max-width: 180px;
+    --chat-emote-height: 60px;
+    --chat-emote-margin-right: -8px;
+    --chat-emoji-height: 55px;
+    --chat-font-family: 'Baloo Tammudu 2', cursive;
+    --chat-text-stroke: 3px black;
+    --chat-text-shadow: 2px 2px 6px black;
+    --chat-font-variant: normal;
+}
+
 header {
     display: flex;
     align-items: center;
@@ -235,6 +261,12 @@ input:focus {
     font-weight: 800;
     word-break: break-word;
     transition: background-color .3s ease-in-out;
+    font-family: var(--chat-font-family);
+    font-size: var(--chat-font-size);
+    line-height: var(--chat-line-height);
+    font-variant: var(--chat-font-variant);
+    -webkit-text-stroke: var(--chat-text-stroke);
+    text-shadow: var(--chat-text-shadow);
 }
 
 #example.white {
@@ -248,20 +280,50 @@ input:focus {
 #example .badge {
     vertical-align: middle;
     border-radius: 10%;
+    width: var(--chat-badge-size);
+    height: var(--chat-badge-size);
+    margin-right: var(--chat-badge-margin-right);
+    margin-bottom: var(--chat-badge-margin-bottom);
+}
+
+#example .badge:last-child {
+    margin-right: var(--chat-badge-last-margin-right);
+}
+
+#example .nick {
+    font-weight: 800;
+    -webkit-text-stroke: var(--chat-text-stroke);
+    text-shadow: var(--chat-text-shadow);
+}
+
+#example .colon {
+    margin-right: var(--chat-colon-margin-right);
 }
 
 #example .cheer_bits {
     color: rgb(189, 98, 255);
-    font-size: 0.6em;
-    -webkit-text-stroke: 1px black;
+    font-weight: var(--chat-cheer-font-weight);
+    margin-right: var(--chat-cheer-margin-right);
+    -webkit-text-stroke: var(--chat-text-stroke);
+    text-shadow: var(--chat-text-shadow);
+}
+
+#example .cheer_emote {
+    max-height: var(--chat-cheer-emote-max-height);
+    margin-bottom: var(--chat-cheer-emote-margin-bottom);
+    vertical-align: middle;
 }
 
 #example .emote {
     vertical-align: middle;
+    max-width: var(--chat-emote-max-width);
+    height: var(--chat-emote-height);
+    margin-right: var(--chat-emote-margin-right);
 }
 
 #example .emoji {
     vertical-align: middle;
+    height: var(--chat-emoji-height);
 }
 
 input[type="submit"],

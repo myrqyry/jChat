@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" class="preview_size" href="styles/size_large.css">
     <link rel="stylesheet" class="preview_font" href="styles/font_BalooTammudu.css">
-    <script src="jquery.min.js"></script>
-    <script src="settings.js" defer></script>
-    <script src="utils.js" defer></script>
-    <script src="script.js" defer></script>
+    <script type="module" src="/src/main.js"></script>
 </head>
 
 <body>
@@ -35,10 +32,25 @@
         </p>
 
 
-        <form name="generator">
-            <div class="form_row center">
+        <form name="generator" class="max-w-4xl mx-auto my-6 p-6 bg-gray-800 rounded-xl shadow-2xl">
+            <div class="form_row center mb-6">
 
-                <input type="text" name="channel" required placeholder="Channel">
+                <input type="text" name="channel" required placeholder="Channel" class="w-60 h-10 border-none rounded-md font-montserrat text-base text-center p-2">
+            </div>
+            <div class="form_row center mb-6">
+                <select name="theme" id="theme" class="w-48 h-8 font-montserrat text-sm p-1 cursor-pointer">
+                    <option value="">Custom</option>
+                    <option value="default">Default</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="retro">Retro</option>
+                    <option value="elegant">Elegant</option>
+                </select>
+                <label for="theme" class="ml-4 text-white font-semibold">Theme</label>
+            </div>
+            <div class="form_row center mb-6">
+                <input type="text" id="custom_theme_name" placeholder="Custom theme name" class="w-48 h-8 border-none rounded-md font-montserrat text-sm text-center p-2 mr-4">
+                <button type="button" id="save_theme" class="px-4 py-2 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors duration-200">Save Theme</button>
             </div>
             <div class="form_table">
                 <div class="form_col">
@@ -121,7 +133,7 @@
             <div id="submit_container">
                 <div class="preview"><img id="brightness" src="img/light.png"> <label>Preview:</label></div>
                 <div id="example">
-                    <div class="chat_line"><span class="user_info"><img class="badge special" src="https://cdn.frankerfacez.com/badge/3/4" style="background-color: rgb(117, 80, 0);"><img class="badge special" src="https://cdn.7tv.app/badge/60d5998fb0ac44b85331fe2b/3x"><img class="badge" src="https://static-cdn.jtvnw.net/badges/v1/3158e758-3cb4-43c5-94b3-7639810451c5/3"><span class="nick" style="color: rgb(38, 255, 0);">giambaJ</span>
+                    <div class="chat_line"><span class="user_info"><img class="badge special" src="https://cdn.frankerfacez.com/badge/3/4" style="background-color: rgb(117, 80, 0);"><img class="badge special" src="https://cdn.7tv.app/badge/60d5998fb0ac44b85331fe2b/3x"><img class="badge" src="https://static-cdn.jtvnw.net/badges/v1/3158e758-3cb4-43c5-94b3-7639810451c5/3"><span class="nick">giambaJ</span>
                         <span class="colon">:</span>
                         </span><span class="message"><img class="cheer_emote" src="https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/100/4.gif"><span class="cheer_bits">100</span> Nice chat <img class="emote" src="https://cdn.betterttv.net/frankerfacez_emote/341767/4">                        <img class="emote" src="https://cdn.7tv.app/emote/6040aacfcf6746000db1034f/4x"></span>
                     </div>

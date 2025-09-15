@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jChat &bull; Setup | giambaJ</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&family=Comfortaa:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Indie+Flower&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Press+Start+2P&family=Wallpoet&display=swap"
+        rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-BqyUyCSm.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/reconnecting-websocket-mjs-WrefFOsr.js">
+  <link rel="stylesheet" crossorigin href="/assets/reconnecting-websocket-mjs-OQdELIJ5.css">
+  <link rel="stylesheet" crossorigin href="/assets/main-BeZClXrL.css">
+</head>
+
+<body>
+    <header>
+        <img src="/assets/peepoHappy-BbRq6y-3.png">
+        <div>
+            <h1>jChat</h1>
+            <h2>Setup</h2>
+        </div>
+
+    </header>
+
+    <section>
+        <p>
+            <em>jChat</em> is an overlay that allows you to show your Twitch chat on screen with OBS, XSplit, and any other streaming software that supports browser sources. It supports your
+            <a href="https://betterttv.com/" target="_blank">BetterTTV</a>, <a href="https://www.frankerfacez.com/" target="_blank">FrankerFaceZ</a> and
+            <a href="https://7tv.app/" target="_blank">7TV</a> emotes, always at the best available quality. You have many options to customize your chat, like enabling a smooth animation for new messages, or fading old ones after some time. If you have
+            a chat full of !gamble addicts, you can choose to hide bots and commands messages. It also comes with many fonts and styling options that can be combined as desired.
+        </p>
+
+
+        <form name="generator" class="max-w-4xl mx-auto my-6 p-6 bg-gray-800 rounded-xl shadow-2xl">
+            <div class="form_row center mb-6">
+
+                <input type="text" name="channel" required placeholder="Channel" class="w-60 h-10 border-none rounded-md font-montserrat text-base text-center p-2">
+            </div>
+            <div class="form_row center mb-6">
+                <select name="theme" id="theme" class="w-48 h-8 font-montserrat text-sm p-1 cursor-pointer">
+                    <option value="">Custom</option>
+                    <option value="default">Default</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="retro">Retro</option>
+                    <option value="elegant">Elegant</option>
+                </select>
+                <label for="theme" class="ml-4 text-white font-semibold">Theme</label>
+            </div>
+            <div class="form_row center mb-6">
+                <input type="text" id="custom_theme_name" placeholder="Custom theme name" class="w-48 h-8 border-none rounded-md font-montserrat text-sm text-center p-2 mr-4">
+                <button type="button" id="save_theme" class="px-4 py-2 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors duration-200">Save Theme</button>
+            </div>
+            <div class="form_table">
+                <div class="form_col">
+                    <div class="form_row left">
+                        <select name="size">
+                            <option value="1">Small</option>
+                            <option value="2">Medium</option>
+                            <option value="3" selected>Large</option>
+                        </select>
+                        <label for="size">Size</label>
+                    </div>
+                    <div class="form_row left">
+                        <select name="font">
+                            <option value="0" selected>Baloo Tammudu</option>
+                            <option value="1">Segoe UI</option>
+                            <option value="2">Roboto</option>
+                            <option value="3">Lato</option>
+                            <option value="4">Noto Sans</option>
+                            <option value="5">Source Code Pro</option>
+                            <option value="6">Impact</option>
+                            <option value="7">Comfortaa</option>
+                            <option value="8">Dancing Script</option>
+                            <option value="9">Indie Flower</option>
+                            <option value="10">Press Start 2P</option>
+                            <option value="11">Wallpoet</option>
+                        </select>
+                        <label for="font">Font</label>
+                    </div>
+                    <br>
+                    <div class="form_row left">
+                        <input type="checkbox" name="bots">
+                        <label for="bots">Show bots</label>
+                    </div>
+                    <div class="form_row left">
+                        <input type="checkbox" name="commands">
+                        <label for="commands">Hide commands</label>
+                    </div>
+                    <div class="form_row left">
+                        <input type="checkbox" name="badges">
+                        <label for="badges">Hide special badges</label>
+                    </div>
+                </div>
+                <div class="form_col">
+                    <div class="form_row right">
+                        <label for="stroke">Stroke</label>
+                        <select name="stroke">
+                            <option value="0" selected>Off</option>
+                            <option value="1">Thin</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Thick</option>
+                            <option value="4">Thicker</option>
+                        </select>
+                    </div>
+                    <div class="form_row right">
+                        <label for="shadow">Shadow</label>
+                        <select name="shadow">
+                            <option value="0" selected>Off</option>
+                            <option value="1">Small</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Large</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form_row right">
+                        <label for="animate">Animate</label>
+                        <input type="checkbox" name="animate">
+                    </div>
+                    <div class="form_row right">
+                        <label for="fade">Fade</label>
+                        <input type="text" name="fade" value="30" class="short hidden"><span id="fade_seconds" class="hidden">sec</span>
+                        <input type="checkbox" name="fade_bool">
+                    </div>
+                    <div class="form_row right">
+                        <label for="small_caps">Caps</label>
+                        <input type="checkbox" name="small_caps">
+                    </div>
+                </div>
+            </div>
+
+            <div id="submit_container">
+                <div class="preview"><img id="brightness" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAArlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8tivQqAAAAOnRSTlMABKuP//u7g2dPOCA8U2uHw/NbEBhjt/eLnyyz58sc26cMFL+jxwiv3zDr438075Mo05dDS89HmyTXz4RVGgAAAtJJREFUeAHsmIWS4kAARBO2cYdwWHB3WN///7DTdNVUXXpOwpzS5TOd92Di8f67+K75qTvHfODOMZ8Gd3wa3PFpcMenwR2fBnd8GpzwaXDHp8EdnwZ3fBoc8hMYkDA3wU3wTwvSmWwuXygWS+VKtXZ1QT3VaJqtoPWufUVBu2PS6eimryXoFuOrvf5VBGFJl/P15ILB0NbujZIKxhN7fTpLJph/s+/PkggWS3Oq1Fkt1utaKrsxR6ejnxeEgcG52wLMbm+sXK/+IwLfPHcPHuPvj4CZsGIcS1pgv/+ePCZY4Kv0Jx7Tt92nNf8YcPi8Q0wuAed7aW3QfOw5HIRArGHCRhfSoPkhj6DlACJ9bhm0lUHzcc/xDmQq7LyDMGg+HqLxYRsyIRepBW0Q/Lpvrq/KnmsEYRB84yIxacOSHbevCYPkI2eeRTq8alQhDIqPx2hqDmuyUa0CYVB88DIxgDWpqFaGMCg+eJ/ZwZoar7QQBsUH7bBnHdWK0IZJLYFgx7Mldv18i4FXshDWLKJaQfOFgcffE6xZ8WjWfGF4jqZSsKYT1XKaLwytaKYBa/jQlNV8YXiJJpppWLLl9hkLnwax6QqW3ImfQb7NwD9/TkPmOOVCar40dMz7ocienZTmS8OareYIIguflbrma0OFw+e6OIsDNjp2vjCETQ6XYg3hmfPFtp2vDHuPOces0iDwmK7kxxiMbvvVY5p8X2LanaXHlGBE8hkYeTMecc8rQ9HuGq8lw/DnH9/75u9pNlJPIbAbzPMT8z8PkryAVHWRGSOJAFXfXl/OkUDAp3SdYIGkAry96vIhRHIB2vum+PmnNJIJmLDix6w+36oSCZh1p+SZ8R/uw2t/ztm+tJ43gecND4+5ef32xevncxPcBPo+rZ//k4cGV3wa3PFpcMenwR2fBnd8GtzxaXDHp4F8lwbyXRnId2Ug35WBfGcG/8MYRhoAABPgW4i/G39nAAAAAElFTkSuQmCC"> <label>Preview:</label></div>
+                <div id="example">
+                    <div class="chat_line"><span class="user_info"><img class="badge special" src="https://cdn.frankerfacez.com/badge/3/4" style="background-color: rgb(117, 80, 0);"><img class="badge special" src="https://cdn.7tv.app/badge/60d5998fb0ac44b85331fe2b/3x"><img class="badge" src="https://static-cdn.jtvnw.net/badges/v1/3158e758-3cb4-43c5-94b3-7639810451c5/3"><span class="nick">giambaJ</span>
+                        <span class="colon">:</span>
+                        </span><span class="message"><img class="cheer_emote" src="https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/100/4.gif"><span class="cheer_bits">100</span> Nice chat <img class="emote" src="https://cdn.betterttv.net/frankerfacez_emote/341767/4">                        <img class="emote" src="https://cdn.7tv.app/emote/6040aacfcf6746000db1034f/4x"></span>
+                    </div>
+                </div>
+                <input type="submit" value="Generate">
+            </div>
+        </form>
+        <div id="result" class="hidden">
+            <div id="alert">Copied to clipboard</div>
+            <input type="text" id="url" readonly>
+            <p>Configure a new browser source on your streaming software with the given URL.</p>
+            <input type="button" id="reset" value="Reset">
+        </div>
+
+    </section>
+
+    <section id="donation">
+        <span>This app is and will always be free.<br>If you like it and want to support, feel free to buy me a beer <img class="emote" src="/assets/Okayge-C7vJnYLX.png"><img class="emote" src="/assets/BeerTime-DgfYiTeU.gif"></span>
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="SRGWJ9QMHMHUG">
+            <input id="paypal" type="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" value="Donate">
+        </form>
+
+
+    </section>
+
+    <footer>
+        <p>Made with &#10084; by <a href="mailto:me@giambaj.it">giambaJ</a>
+            <a href="https://github.com/giambaJ/jChat" target="_blank"><img class="github" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RERCMUIwQTM4NkNFMTFFM0FBNTJFRTMzNTJEMUJDNDYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RERCMUIwQTI4NkNFMTFFM0FBNTJFRTMzNTJEMUJDNDYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkU1MTc4QTMyOTlBMDExRTI5QTE1QkMxMDQ2QTg5MDREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjJBNDE0QUJDOTlBMTExRTI5QTE1QkMxMDQ2QTg5MDREIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+8kSqyAAADD5JREFUeNrsXQ2Q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"></a>
+        </p>
+        <p>This application is not affiliated with <a href="https://www.twitch.tv/" target="_blank">Twitch</a></p>
+    </footer>
+</body>
+
+</html>
