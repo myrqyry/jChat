@@ -1,4 +1,3 @@
-#example,
-.chat_line {
-    -webkit-text-stroke: var(--chat-text-stroke, 3px black);
+#chat_container {
+    -webkit-text-stroke: 3px black;
 }

@@ -1,51 +1,47 @@
-#example,
+#chat_container {
+    font-size: 34px;
+}
+
 .chat_line {
-    font-size: var(--chat-font-size, 34px);
+    line-height: 55px;
 }
 
-#example .chat_line,
-.chat_line {
-    line-height: var(--chat-line-height, 55px);
+.badge {
+    width: 28px;
+    height: 28px;
+    margin-right: 4px;
+    margin-bottom: 6px;
 }
 
-#example .badge,
-.chat_line .badge {
-    width: var(--chat-badge-size, 28px);
-    height: var(--chat-badge-size, 28px);
-    margin-right: var(--chat-badge-margin-right, 4px);
-    margin-bottom: var(--chat-badge-margin-bottom, 6px);
+.badge:last-of-type {
+    margin-right: 6px;
 }
 
-#example .badge:last-of-type,
-.chat_line .badge:last-of-type {
-    margin-right: var(--chat-badge-last-margin-right, 6px);
+.colon {
+    margin-right: 14px;
 }
 
-#example .colon,
-.chat_line .colon {
-    margin-right: var(--chat-colon-margin-right, 14px);
+.cheer_bits {
+    font-weight: 600;
+    margin-left: 4px;
+    margin-right: 7px;
 }
 
-#example .cheer_bits,
-.chat_line .cheer_bits {
-    font-weight: var(--chat-cheer-font-weight, 600);
-    margin-right: var(--chat-cheer-margin-right, 7px);
+.cheer_emote {
+    max-height: 42px;
+    margin-bottom: -10px;
 }
 
-#example .cheer_emote,
-.chat_line .cheer_emote {
-    max-height: var(--chat-cheer-emote-max-height, 42px);
-    margin-bottom: var(--chat-cheer-emote-margin-bottom, -10px);
+.emote {
+    max-width: 128px;
+    max-height: 42px;
+    margin-right: -3px;
 }
 
-#example .emote,
-.chat_line .emote {
-    max-width: var(--chat-emote-max-width, 128px);
-    height: var(--chat-emote-height, 42px);
-    margin-right: var(--chat-emote-margin-right, -6px);
+.upscale {
+    height: 42px;
 }
 
-#example .emoji,
-.chat_line .emoji {
-    height: var(--chat-emoji-height, 39px);
+.emoji {
+    height: 39px;
 }

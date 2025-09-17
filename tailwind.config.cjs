@@ -4,7 +4,6 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,svelte}",
     "./overlay.html",
-    "./v2/**/*.{html,js}",
   ],
   theme: {
     extend: {

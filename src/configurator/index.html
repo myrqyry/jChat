@@ -1,156 +1,281 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <title>jChat &bull; Setup | giambaJ</title>
+    <link rel="icon" type="image/png" href="../../img/peepoHappy.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&family=Comfortaa:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Indie+Flower&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Press+Start+2P&family=Wallpoet&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" class="preview_size" href="styles/size_large.css">
-    <link rel="stylesheet" class="preview_font" href="styles/font_BalooTammudu.css">
-    <script type="module" src="/src/main.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;500;600;700;800&family=Comfortaa:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Indie+Flower&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Press+Start+2P&family=Wallpoet&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" class="preview_size" href="../../styles/size_large.css">
+    <link rel="stylesheet" class="preview_font" href="../../styles/font_BalooTammudu.css">
+    <script type="module" src="../main.js"></script>
 </head>
 
 <body>
-    <header>
-        <img src="img/peepoHappy.png">
+    <header class="flex items-center justify-center p-4 bg-gradient-to-br from-blue-500 to-purple-600 text-white text-center">
+        <img src="../../img/peepoHappy.png" alt="jChat logo" class="w-15 h-15 mr-4">
         <div>
-            <h1>jChat</h1>
-            <h2>Setup</h2>
+            <h1 class="font-montserrat text-3xl font-bold m-0">jChat</h1>
+            <h2 class="font-montserrat text-lg font-light mt-1 mb-0 opacity-90">Setup</h2>
         </div>
-
     </header>
 
-    <section>
-        <p>
-            <em>jChat</em> is an overlay that allows you to show your Twitch chat on screen with OBS, XSplit, and any other streaming software that supports browser sources. It supports your
-            <a href="https://betterttv.com/" target="_blank">BetterTTV</a>, <a href="https://www.frankerfacez.com/" target="_blank">FrankerFaceZ</a> and
-            <a href="https://7tv.app/" target="_blank">7TV</a> emotes, always at the best available quality. You have many options to customize your chat, like enabling a smooth animation for new messages, or fading old ones after some time. If you have
+    <section class="max-w-4xl mx-auto px-4">
+        <p class="text-center text-base leading-relaxed text-slate-300 mb-5">
+            <em class="font-semibold">jChat</em> is an overlay that allows you to show your Twitch chat on screen with OBS, XSplit, and any other streaming software that supports browser sources. It supports your
+            <a href="https://betterttv.com/" target="_blank" class="text-blue-400 hover:text-blue-300 no-underline hover:underline">BetterTTV</a>, <a href="https://www.frankerfacez.com/" target="_blank" class="text-blue-400 hover:text-blue-300 no-underline hover:underline">FrankerFaceZ</a> and
+            <a href="https://7tv.app/" target="_blank" class="text-blue-400 hover:text-blue-300 no-underline hover:underline">7TV</a> emotes, always at the best available quality. You have many options to customize your chat, like enabling a smooth animation for new messages, or fading old ones after some time. If you have
             a chat full of !gamble addicts, you can choose to hide bots and commands messages. It also comes with many fonts and styling options that can be combined as desired.
         </p>
 
+        <form name="generator" class="max-w-4xl mx-auto my-5 p-5 bg-slate-800/90 border border-slate-600 rounded-2xl shadow-2xl backdrop-blur-md">
+            <!-- Tab Navigation -->
+            <nav class="tabs flex justify-center mb-6" role="tablist" aria-label="Configuration tabs">
+                <button type="button" class="tab-btn px-6 py-2 bg-slate-700 text-white rounded-l-lg border border-slate-600 mr-0 focus:outline-none focus:ring-2 focus:ring-blue-400/20 active" data-tab="basic" role="tab" aria-selected="true" aria-controls="basic-panel" tabindex="0">
+                    Basic
+                    <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Basic settings for channel and theme selection">?</button>
+                </button>
+                <button type="button" class="tab-btn px-6 py-2 bg-slate-700 text-white border border-slate-600 mx-px focus:outline-none focus:ring-2 focus:ring-blue-400/20" data-tab="advanced" role="tab" aria-selected="false" aria-controls="advanced-panel" tabindex="-1">
+                    Advanced
+                    <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Advanced styling and toggle options">?</button>
+                </button>
+                <button type="button" class="tab-btn px-6 py-2 bg-slate-700 text-white rounded-r-lg border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-400/20" data-tab="preview" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1">
+                    Preview
+                    <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Live preview of your settings">?</button>
+                </button>
+            </nav>
 
-        <form name="generator">
-            <div class="form_row center">
-
-                <input type="text" name="channel" required placeholder="Channel">
-            </div>
-            <div class="form_table">
-                <div class="form_col">
-                    <div class="form_row left">
-                        <select name="size">
-                            <option value="1">Small</option>
-                            <option value="2">Medium</option>
-                            <option value="3" selected>Large</option>
-                        </select>
-                        <label for="size">Size</label>
-                    </div>
-                    <div class="form_row left">
-                        <select name="font">
-                            <option value="0" selected>Baloo Tammudu</option>
-                            <option value="1">Segoe UI</option>
-                            <option value="2">Roboto</option>
-                            <option value="3">Lato</option>
-                            <option value="4">Noto Sans</option>
-                            <option value="5">Source Code Pro</option>
-                            <option value="6">Impact</option>
-                            <option value="7">Comfortaa</option>
-                            <option value="8">Dancing Script</option>
-                            <option value="9">Indie Flower</option>
-                            <option value="10">Press Start 2P</option>
-                            <option value="11">Wallpoet</option>
-                        </select>
-                        <label for="font">Font</label>
-                    </div>
-                    <br>
-                    <div class="form_row left">
-                        <input type="checkbox" name="bots">
-                        <label for="bots">Show bots</label>
-                    </div>
-                    <div class="form_row left">
-                        <input type="checkbox" name="commands">
-                        <label for="commands">Hide commands</label>
-                    </div>
-                    <div class="form_row left">
-                        <input type="checkbox" name="badges">
-                        <label for="badges">Hide special badges</label>
-                    </div>
+            <!-- Basic Panel -->
+            <div id="basic-panel" class="tab-panel" role="tabpanel" aria-labelledby="basic-tab">
+                <div class="flex justify-center mb-3">
+                    <input type="text" id="channel" name="channel" required placeholder="Channel" class="w-60 h-10 px-4 border border-slate-500 rounded-lg bg-slate-700 text-white font-montserrat text-base text-center focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all" pattern="^[a-zA-Z0-9_]{4,25}$" title="Channel name must be 4-25 alphanumeric characters">
                 </div>
-                <div class="form_col">
-                    <div class="form_row right">
-                        <label for="stroke">Stroke</label>
-                        <select name="stroke">
-                            <option value="0" selected>Off</option>
-                            <option value="1">Thin</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Thick</option>
-                            <option value="4">Thicker</option>
-                        </select>
-                    </div>
-                    <div class="form_row right">
-                        <label for="shadow">Shadow</label>
-                        <select name="shadow">
-                            <option value="0" selected>Off</option>
-                            <option value="1">Small</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Large</option>
-                        </select>
-                    </div>
-                    <br>
-                    <div class="form_row right">
-                        <label for="animate">Animate</label>
-                        <input type="checkbox" name="animate">
-                    </div>
-                    <div class="form_row right">
-                        <label for="fade">Fade</label>
-                        <input type="text" name="fade" value="30" class="short hidden"><span id="fade_seconds" class="hidden">sec</span>
-                        <input type="checkbox" name="fade_bool">
-                    </div>
-                    <div class="form_row right">
-                        <label for="small_caps">Caps</label>
-                        <input type="checkbox" name="small_caps">
-                    </div>
+                <div class="flex gap-4 items-center justify-center mb-4">
+                    <input type="text" id="theme-search" placeholder="Search themes..." class="w-48 h-8 px-2 border border-slate-500 rounded-md bg-slate-700 text-white font-montserrat text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20">
+                    <label for="theme-filter" class="text-white font-semibold text-sm">Custom only:</label>
+                    <input type="checkbox" id="theme-filter" checked class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2 ml-1">
+                </div>
+                <div id="theme-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4"></div>
+                <div class="flex justify-center">
+                    <button type="button" id="custom-theme-btn" class="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-green-600 hover:to-green-700 hover:-translate-y-0.5 hover:shadow-lg transition-all">+</button>
                 </div>
             </div>
 
-            <div id="submit_container">
-                <div class="preview"><img id="brightness" src="img/light.png"> <label>Preview:</label></div>
-                <div id="example">
-                    <div class="chat_line"><span class="user_info"><img class="badge special" src="https://cdn.frankerfacez.com/badge/3/4" style="background-color: rgb(117, 80, 0);"><img class="badge special" src="https://cdn.7tv.app/badge/60d5998fb0ac44b85331fe2b/3x"><img class="badge" src="https://static-cdn.jtvnw.net/badges/v1/3158e758-3cb4-43c5-94b3-7639810451c5/3"><span class="nick" style="color: rgb(38, 255, 0);">giambaJ</span>
-                        <span class="colon">:</span>
-                        </span><span class="message"><img class="cheer_emote" src="https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/100/4.gif"><span class="cheer_bits">100</span> Nice chat <img class="emote" src="https://cdn.betterttv.net/frankerfacez_emote/341767/4">                        <img class="emote" src="https://cdn.7tv.app/emote/6040aacfcf6746000db1034f/4x"></span>
+            <!-- Advanced Panel -->
+            <div id="advanced-panel" class="tab-panel hidden" role="tabpanel" aria-labelledby="advanced-tab">
+                <div class="form-table">
+                    <div class="form-col">
+                        <div class="flex items-center mb-3">
+                            <select name="size" class="form-select" required>
+                                <option value="1">Small</option>
+                                <option value="2">Medium</option>
+                                <option value="3" selected>Large</option>
+                            </select>
+                            <label for="size" class="form-label">Size</label>
+                            <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Message size: Small (24px), Medium (36px), Large (48px)">?</button>
+                        </div>
+                        <div class="flex items-center mb-3">
+                            <select name="font" class="form-select" required>
+                                <option value="0" selected>Baloo Tammudu</option>
+                                <option value="1">Segoe UI</option>
+                                <option value="2">Roboto</option>
+                                <option value="3">Lato</option>
+                                <option value="4">Noto Sans</option>
+                                <option value="5">Source Code Pro</option>
+                                <option value="6">Impact</option>
+                                <option value="7">Comfortaa</option>
+                                <option value="8">Dancing Script</option>
+                                <option value="9">Indie Flower</option>
+                                <option value="10">Press Start 2P</option>
+                                <option value="11">Wallpoet</option>
+                            </select>
+                            <label for="font" class="form-label">Font</label>
+                            <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Choose from 12 available fonts">?</button>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="flex items-center justify-end mb-3">
+                            <label for="stroke" class="mr-3 text-white font-semibold text-sm">Stroke</label>
+                            <select name="stroke" class="form-select">
+                                <option value="0" selected>Off</option>
+                                <option value="1">Thin</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Thick</option>
+                                <option value="4">Thicker</option>
+                            </select>
+                            <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Text outline thickness">?</button>
+                        </div>
+                        <div class="flex items-center justify-end mb-3">
+                            <label for="shadow" class="mr-3 text-white font-semibold text-sm">Shadow</label>
+                            <select name="shadow" class="form-select">
+                                <option value="0" selected>Off</option>
+                                <option value="1">Small</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Large</option>
+                            </select>
+                            <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Text drop shadow">?</button>
+                        </div>
                     </div>
                 </div>
-                <input type="submit" value="Generate">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" name="bots" id="bots" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                        <label for="bots" class="ml-2 text-white font-semibold text-sm">Show bots</label>
+                        <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Toggle display of bot messages">?</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" name="hide_commands" id="hide_commands" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                        <label for="hide_commands" class="ml-2 text-white font-semibold text-sm">Hide commands</label>
+                        <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Hide messages starting with !">?</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" name="hide_badges" id="hide_badges" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                        <label for="hide_badges" class="ml-2 text-white font-semibold text-sm">Hide special badges</label>
+                        <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Hide moderator/subscriber badges">?</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" name="animate" id="animate" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                        <label for="animate" class="ml-2 text-white font-semibold text-sm">Animate</label>
+                        <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Smooth animation for new messages">?</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" name="fade" id="fade" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                        <label for="fade" class="ml-2 text-white font-semibold text-sm">Fade</label>
+                        <input type="number" name="fade_duration" id="fade_duration" min="1" max="300" value="30" class="short ml-2 hidden">
+                        <span id="fade_seconds" class="ml-1 text-white text-sm hidden">sec</span>
+                        <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Fade old messages after duration">?</button>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <input type="checkbox" name="small_caps" id="small_caps" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                        <label for="small_caps" class="ml-2 text-white font-semibold text-sm">Small Caps</label>
+                        <button type="button" class="ml-1 px-1 py-1 bg-slate-600 text-white text-xs rounded" title="Convert text to small caps variant">?</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div id="preview-panel" class="tab-panel hidden" role="tabpanel" aria-labelledby="preview-tab">
+                <div id="preview-container" class="mb-4"></div>
+                <div class="flex justify-center gap-4">
+                    <button type="button" id="generate-btn" class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-cyan-600 hover:to-cyan-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+                        Generate
+                    </button>
+                </div>
+                <div id="result" class="hidden mt-4">
+                    <div class="bg-green-600 text-white px-4 py-2 rounded-lg mb-3 text-center font-semibold">Copied to clipboard</div>
+                    <input type="text" id="url-input" readonly class="w-full h-10 px-4 border border-slate-500 rounded-lg bg-slate-700 text-white font-montserrat text-sm mb-3">
+                    <div class="flex justify-center gap-2">
+                        <button type="button" id="copy-btn" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all">Copy</button>
+                        <button type="button" id="reset" class="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-red-600 hover:to-red-700 hover:-translate-y-0.5 hover:shadow-lg transition-all">Reset</button>
+                    </div>
+                </div>
             </div>
         </form>
+
+        <!-- Custom Theme Modal -->
+        <dialog id="custom-modal" class="custom-modal bg-slate-800/90 border border-slate-600 rounded-2xl p-6 w-96 max-w-md mx-auto" aria-modal="true" aria-labelledby="modal-title">
+            <h3 id="modal-title" class="text-white font-semibold mb-4">Create Custom Theme</h3>
+            <form name="custom-form" class="flex flex-col gap-3">
+                <input type="text" name="theme-name" id="theme-name" placeholder="Theme Name" required class="w-full h-10 px-4 border border-slate-500 rounded-lg bg-slate-700 text-white font-montserrat text-sm text-center focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all">
+                <select name="custom-size" class="w-full h-8 px-2 border border-slate-500 rounded-md bg-slate-700 text-white font-montserrat text-sm cursor-pointer focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all">
+                    <option value="1">Small</option>
+                    <option value="2">Medium</option>
+                    <option value="3" selected>Large</option>
+                </select>
+                <select name="custom-font" class="w-full h-8 px-2 border border-slate-500 rounded-md bg-slate-700 text-white font-montserrat text-sm cursor-pointer focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all">
+                    <option value="0" selected>Baloo Tammudu</option>
+                    <option value="1">Segoe UI</option>
+                    <option value="2">Roboto</option>
+                    <option value="3">Lato</option>
+                    <option value="4">Noto Sans</option>
+                    <option value="5">Source Code Pro</option>
+                    <option value="6">Impact</option>
+                    <option value="7">Comfortaa</option>
+                    <option value="8">Dancing Script</option>
+                    <option value="9">Indie Flower</option>
+                    <option value="10">Press Start 2P</option>
+                    <option value="11">Wallpoet</option>
+                </select>
+                <select name="custom-stroke" class="w-full h-8 px-2 border border-slate-500 rounded-md bg-slate-700 text-white font-montserrat text-sm cursor-pointer focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all">
+                    <option value="0" selected>Off</option>
+                    <option value="1">Thin</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Thick</option>
+                    <option value="4">Thicker</option>
+                </select>
+                <select name="custom-shadow" class="w-full h-8 px-2 border border-slate-500 rounded-md bg-slate-700 text-white font-montserrat text-sm cursor-pointer focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all">
+                    <option value="0" selected>Off</option>
+                    <option value="1">Small</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Large</option>
+                </select>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" name="custom-bots" id="custom-bots" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                    <label for="custom-bots" class="ml-2 text-white font-semibold text-sm">Show bots</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" name="custom-hide_commands" id="custom-hide_commands" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                    <label for="custom-hide_commands" class="ml-2 text-white font-semibold text-sm">Hide commands</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" name="custom-hide_badges" id="custom-hide_badges" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                    <label for="custom-hide_badges" class="ml-2 text-white font-semibold text-sm">Hide special badges</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" name="custom-animate" id="custom-animate" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                    <label for="custom-animate" class="ml-2 text-white font-semibold text-sm">Animate</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" name="custom-fade" id="custom-fade" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                    <label for="custom-fade" class="ml-2 text-white font-semibold text-sm">Fade</label>
+                    <input type="number" name="custom-fade_duration" id="custom-fade_duration" min="1" max="300" value="30" class="short ml-2">
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" name="custom-small_caps" id="custom-small_caps" class="w-4 h-4 text-cyan-400 bg-slate-700 border-slate-500 rounded focus:ring-cyan-400 focus:ring-2">
+                    <label for="custom-small_caps" class="ml-2 text-white font-semibold text-sm">Small Caps</label>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="button" id="save-theme-btn" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-emerald-600 hover:to-emerald-700 hover:-translate-y-0.5 hover:shadow-lg transition-all">Save Theme</button>
+                </div>
+            </form>
+        </dialog>
+
         <div id="result" class="hidden">
-            <div id="alert">Copied to clipboard</div>
-            <input type="text" id="url" readonly>
-            <p>Configure a new browser source on your streaming software with the given URL.</p>
-            <input type="button" id="reset" value="Reset">
+            <div class="bg-green-600 text-white px-4 py-2 rounded-lg mb-3 text-center font-semibold">Copied to clipboard</div>
+            <input type="text" id="url-input" readonly class="w-full h-10 px-4 border border-slate-500 rounded-lg bg-slate-700 text-white font-montserrat text-sm mb-3">
+            <p class="text-slate-300 text-sm mb-3 text-center">Configure a new browser source on your streaming software with the given URL.</p>
+            <div class="flex justify-center gap-2">
+                <button type="button" id="copy-btn" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-blue-600 hover:to-blue-700 hover:-translate-y-0.5 hover:shadow-lg transition-all">Copy</button>
+                <input type="button" id="reset" value="Reset" class="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white border-none rounded-lg font-montserrat font-semibold text-sm cursor-pointer hover:from-red-600 hover:to-red-700 hover:-translate-y-0.5 hover:shadow-lg transition-all">
+            </div>
         </div>
-
     </section>
 
-    <section id="donation">
-        <span>This app is and will always be free.<br>If you like it and want to support, feel free to buy me a beer <img class="emote" src="img/Okayge.png"><img class="emote" src="img/BeerTime.gif"></span>
-        <form action="https://www.paypal.com/donate" method="post" target="_top">
-            <input type="hidden" name="hosted_button_id" value="SRGWJ9QMHMHUG">
-            <input id="paypal" type="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" value="Donate">
-        </form>
-
-
+    <section id="donation" class="text-center my-6 px-4">
+        <div class="max-w-md mx-auto p-5 bg-slate-800/60 border border-slate-600 rounded-2xl backdrop-blur-md">
+            <span class="block text-slate-300 text-base mb-4 leading-relaxed">
+                This app is and will always be free.<br>If you like it and want to support, feel free to buy me a beer 
+                <img class="inline-block w-6 h-6" src="../../img/Okayge.png" alt="Okayge">
+                <img class="inline-block w-6 h-6" src="../../img/BeerTime.gif" alt="BeerTime">
+            </span>
+            <form action="https://www.paypal.com/donate" method="post" target="_top" class="inline-block">
+                <input type="hidden" name="hosted_button_id" value="SRGWJ9QMHMHUG">
+                <input id="paypal" type="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" value="Donate" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white border-none rounded-lg font-montserrat font-semibold text-base cursor-pointer hover:from-blue-700 hover:to-blue-800 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200">
+            </form>
+        </div>
     </section>
 
-    <footer>
-        <p>Made with &#10084; by <a href="mailto:me@giambaj.it">giambaJ</a>
-            <a href="https://github.com/giambaJ/jChat" target="_blank"><img class="github" src="img/github.png"></a>
+    <footer class="text-center mt-6 mb-4 px-4 pb-4 border-t border-slate-600">
+        <p class="text-slate-400 text-sm mb-2">
+            Made with ❤️ by <a href="mailto:me@giambaj.it" class="text-cyan-400 hover:text-cyan-300 no-underline hover:underline">giambaJ</a>
+            <a href="https://github.com/giambaJ/jChat" target="_blank" class="inline-block ml-2">
+                <img class="w-6 h-6 opacity-80 hover:opacity-100 transition-opacity" src="../../img/github.png" alt="GitHub">
+            </a>
         </p>
-        <p>This application is not affiliated with <a href="https://www.twitch.tv/" target="_blank">Twitch</a></p>
+        <p class="text-slate-500 text-xs">This application is not affiliated with <a href="https://www.twitch.tv/" target="_blank" class="text-cyan-400 hover:text-cyan-300 no-underline hover:underline">Twitch</a></p>
     </footer>
-</body>
 
+    <script type="module" src="./script.js" defer></script>
+</body>
 </html>

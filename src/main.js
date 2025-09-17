@@ -1,6 +1,3 @@
-import $ from 'jquery';
-window.$ = $;
-
 import tinycolor from 'tinycolor2';
 window.tinycolor = tinycolor;
 
@@ -17,6 +14,7 @@ import { themes, loadCustomThemes, saveCustomTheme } from './themes.js';
 window.themes = themes;
 window.saveCustomTheme = saveCustomTheme;
 loadCustomThemes();
+console.log('Themes loaded:', window.themes);
 
 import './settings.js';
 import './utils.js';

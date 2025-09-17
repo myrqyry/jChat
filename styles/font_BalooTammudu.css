@@ -1,4 +1,3 @@
-#example,
-.chat_line {
-    font-family: var(--chat-font-family, 'Baloo Tammudu 2', cursive);
+#chat_container {
+    font-family: 'Baloo Tammudu 2', cursive;
 }

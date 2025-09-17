@@ -2,3 +2,7 @@ credentials.js
 backups/
 t/
 .vscode
+node_modeules/
+.pytest_cache
+archive
+*/__pycache__

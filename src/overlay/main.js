@@ -1,6 +1,3 @@
-import $ from 'jquery';
-window.$ = $;
-
 import tinycolor from 'tinycolor2';
 window.tinycolor = tinycolor;
 

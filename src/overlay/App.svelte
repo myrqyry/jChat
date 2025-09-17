@@ -1,7 +1,10 @@
 <script>
   import { messages } from './store.js';
   import ChatMessage from './ChatMessage.svelte';
+  import ChatConnector from './ChatConnector.svelte';
 </script>
+
+<ChatConnector />
 
 <div class="chat_container">
   {#each $messages as msg}

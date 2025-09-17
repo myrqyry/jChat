@@ -1,5 +1,8 @@
 <script>
-  let { nick, badges = [], color, message, isAction = false } = $props();
+  import { onMount } from 'svelte';
+  let { nick, badges = [], color, message, messageTokens = null, isAction = false } = $props();
+
+  // Nothing else here; token rendering handled in markup below.
 </script>
 
 <div class="chat_line">
@@ -11,7 +14,25 @@
     {#if !isAction}<span class="colon">:</span>{/if}
   </span>
   <span class="message" class:action={isAction} style={isAction ? `color: ${color}` : ''}>
-    {@html message}
+    {#if messageTokens && messageTokens.length}
+      {#each messageTokens as token}
+        {#if token.type === 'text'}
+          {token.value}
+        {:else if token.type === 'emote'}
+          <img class="emote" src={token.props.src} alt="emote" />
+        {:else if token.type === 'emoji'}
+          <img class="emoji" src={token.props.src} alt="emoji" />
+        {:else if token.type === 'cheer'}
+          <img class="cheer_emote" src={token.props.src} alt="cheer" />
+        {:else if token.type === 'cheer_bits'}
+          <span class="cheer_bits">{token.value}</span>
+        {:else}
+          {token.value}
+        {/if}
+      {/each}
+    {:else}
+      {message}
+    {/if}
   </span>
 </div>
 

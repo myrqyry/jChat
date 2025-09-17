@@ -1,10 +1,18 @@
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import asyncio
 from typing import List
 
 app = FastAPI(title="jChat Backend API", version="0.1.0")
+
+from . import db
+
+
+@app.on_event("startup")
+async def startup_event():
+    # Initialize the SQLite database for themes
+    db.init_db()
 
 # CORS middleware
 app.add_middleware(
@@ -50,19 +58,52 @@ async def chat_websocket(websocket: WebSocket, channel: str):
 
 @app.post("/api/themes")
 async def save_theme(theme_data: dict):
-    """Save a custom theme configuration"""
-    # In a real app, this would save to a database
-    return {"status": "saved", "theme": theme_data}
+    """Save a custom theme configuration. Expects {id, name, data}"""
+    if not isinstance(theme_data, dict):
+        raise HTTPException(status_code=400, detail="Invalid payload")
+
+    theme_id = theme_data.get("id")
+    name = theme_data.get("name")
+    data = theme_data.get("data")
+
+    if not theme_id or not name or data is None:
+        raise HTTPException(status_code=400, detail="Missing required fields: id, name, data")
+
+    # store as JSON string
+    db.save_theme(theme_id, name, json.dumps(data))
+    return {"status": "saved", "theme": {"id": theme_id, "name": name}}
+
 
 @app.get("/api/themes")
 async def get_themes():
-    """Get available themes"""
-    return {
-        "themes": [
-            {"name": "Default", "id": "default"},
-            {"name": "Gaming", "id": "gaming"},
-            {"name": "Minimal", "id": "minimal"},
-            {"name": "Retro", "id": "retro"},
-            {"name": "Elegant", "id": "elegant"}
-        ]
-    }
+    """Get available themes from the DB"""
+    themes = db.list_themes()
+    # parse data back to JSON where possible
+    parsed = []
+    for t in themes:
+        try:
+            payload = json.loads(t["data"]) if isinstance(t["data"], str) else t["data"]
+        except Exception:
+            payload = t["data"]
+        parsed.append({"id": t["id"], "name": t["name"], "data": payload})
+    return {"themes": parsed}
+
+
+@app.get("/api/themes/{theme_id}")
+async def get_theme(theme_id: str):
+    t = db.get_theme(theme_id)
+    if not t:
+        raise HTTPException(status_code=404, detail="Theme not found")
+    try:
+        payload = json.loads(t["data"]) if isinstance(t["data"], str) else t["data"]
+    except Exception:
+        payload = t["data"]
+    return {"theme": {"id": t["id"], "name": t["name"], "data": payload}}
+
+
+@app.delete("/api/themes/{theme_id}")
+async def delete_theme(theme_id: str):
+    ok = db.delete_theme(theme_id)
+    if not ok:
+        raise HTTPException(status_code=404, detail="Theme not found")
+    return {"status": "deleted", "id": theme_id}

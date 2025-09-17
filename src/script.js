@@ -1,380 +1,278 @@
-function fadeOption(event) {
-    if ($fade_bool.is(':checked')) {
-        $fade.removeClass('hidden');
-        $fade_seconds.removeClass('hidden');
-    } else {
-        $fade.addClass('hidden');
-        $fade_seconds.addClass('hidden');
-    }
-}
+// Vanilla generator UI (no jQuery). Clean, single implementation.
+console.log('script.js loaded');
 
-function sizeUpdate(event) {
-    updatePreviewCSS();
-}
+function qs(selector, scope = document) { return scope.querySelector(selector); }
+function qsa(selector, scope = document) { return Array.from(scope.querySelectorAll(selector)); }
 
-function fontUpdate(event) {
-    updatePreviewCSS();
-}
-
-function strokeUpdate(event) {
-    updatePreviewCSS();
-}
-
-function shadowUpdate(event) {
-    updatePreviewCSS();
-}
-
-function capsUpdate(event) {
-    updatePreviewCSS();
+function fadeOption() {
+  if (fadeBool && fadeBool.checked) {
+    fade.classList.remove('hidden');
+    fadeSeconds.classList.remove('hidden');
+  } else if (fade) {
+    fade.classList.add('hidden');
+    fadeSeconds.classList.add('hidden');
+  }
 }
 
 function updatePreviewCSS() {
-    const config = {
-        size: Number($size.val()),
-        font: Number($font.val()),
-        stroke: Number($stroke.val()),
-        shadow: Number($shadow.val()),
-        smallCaps: $small_caps.is(':checked')
-    };
-    setPreviewCSSVariables(config);
+  const config = {
+    size: Number(sizeSelect?.value ?? 3),
+    font: Number(fontSelect?.value ?? 0),
+    stroke: Number(strokeSelect?.value ?? 0),
+    shadow: Number(shadowSelect?.value ?? 0),
+    smallCaps: smallCapsCheckbox?.checked ?? false
+  };
+  setPreviewCSSVariables(config);
 }
 
 function saveCustomTheme() {
-    const themeName = $('#custom_theme_name').val().trim();
-    if (!themeName) {
-        alert('Please enter a theme name');
-        return;
-    }
+  const themeName = customThemeName?.value.trim();
+  if (!themeName) { alert('Please enter a theme name'); return; }
 
-    const config = {
-        size: Number($size.val()),
-        font: Number($font.val()),
-        stroke: Number($stroke.val()),
-        shadow: Number($shadow.val()),
-        bots: $bots.is(':checked'),
-        hide_commands: $commands.is(':checked'),
-        hide_badges: $badges.is(':checked'),
-        animate: $animate.is(':checked'),
-        fade: $fade_bool.is(':checked') ? Number($fade.val()) : false,
-        small_caps: $small_caps.is(':checked')
-    };
+  const config = {
+    size: Number(sizeSelect?.value),
+    font: Number(fontSelect?.value),
+    stroke: Number(strokeSelect?.value),
+    shadow: Number(shadowSelect?.value),
+    bots: !!botsCheckbox?.checked,
+    hide_commands: !!commandsCheckbox?.checked,
+    hide_badges: !!badgesCheckbox?.checked,
+    animate: !!animateCheckbox?.checked,
+    fade: fadeBool?.checked ? Number(fade?.value) : false,
+    small_caps: !!smallCapsCheckbox?.checked
+  };
 
-    const { saveCustomTheme: saveTheme } = window;
-    saveTheme(themeName, config);
-
-    // Clear the input
-    $('#custom_theme_name').val('');
-
-    // Repopulate the theme selector
-    populateThemeSelector();
-
-    // Select the newly saved theme
-    $theme.val(themeName);
-
-    alert(`Theme "${themeName}" saved successfully!`);
+  if (typeof window.saveCustomTheme === 'function') window.saveCustomTheme(themeName, config);
+  if (customThemeName) customThemeName.value = '';
+  populateThemeSelector();
+  if (themeSelect) themeSelect.value = themeName;
+  alert(`Theme "${themeName}" saved successfully!`);
 }
 
 function populateThemeSelector() {
-    const { themes } = window;
-    const $theme = $('#theme');
-
-    // Clear existing options except the first one
-    $theme.find('option:not(:first)').remove();
-
-    // Add theme options
-    Object.entries(themes).forEach(([key, theme]) => {
-        const $option = $('<option>')
-            .val(key)
-            .text(theme.name)
-            .attr('title', theme.description);
-        $theme.append($option);
-    });
+  const themes = window.themes || {};
+  console.log('Themes:', themes);
+  if (!themeSelect) {
+    console.log('themeSelect not found');
+    return;
+  }
+  if (Object.keys(themes).length === 0) {
+    console.log('Themes not loaded yet, retrying...');
+    setTimeout(populateThemeSelector, 10);
+    return;
+  }
+  while (themeSelect.options.length > 1) themeSelect.remove(1);
+  Object.entries(themes).forEach(([key, theme]) => {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = theme.name;
+    if (theme.description) opt.title = theme.description;
+    themeSelect.appendChild(opt);
+  });
+  console.log('Theme selector populated with', Object.keys(themes).length, 'themes');
 }
 
 function badgesUpdate() {
-    // Update badge visibility based on the hide_badges checkbox
-    const hideBadges = $badges.is(':checked');
-    const badges = $('#example .badge');
-
-    if (hideBadges) {
-        badges.hide();
-    } else {
-        badges.show();
-    }
+  const hide = badgesCheckbox?.checked;
+  qsa('#example .badge').forEach(b => b.style.display = hide ? 'none' : '');
 }
 
 function applyTheme(themeName) {
-    if (!themeName) return;
+  if (!themeName) return;
+  const theme = (window.themes || {})[themeName];
+  if (!theme) return;
+  const config = theme.config || {};
 
-    const { themes } = window;
-    const theme = themes[themeName];
-    if (!theme) return;
+  const tl = gsap.timeline();
+  tl.to('#example', { opacity: 0, duration: 0.3, ease: 'power2.out' });
+  tl.call(() => {
+    if (sizeSelect) sizeSelect.value = config.size ?? sizeSelect.value;
+    if (fontSelect) fontSelect.value = config.font ?? fontSelect.value;
+    if (strokeSelect) strokeSelect.value = config.stroke ?? 0;
+    if (shadowSelect) shadowSelect.value = config.shadow ?? 0;
+    if (botsCheckbox) botsCheckbox.checked = !!config.bots;
+    if (commandsCheckbox) commandsCheckbox.checked = !!config.hide_commands;
+    if (badgesCheckbox) badgesCheckbox.checked = !!config.hide_badges;
+    if (animateCheckbox) animateCheckbox.checked = !!config.animate;
+    if (smallCapsCheckbox) smallCapsCheckbox.checked = !!config.small_caps;
 
-    const config = theme.config;
-
-    // GSAP animation for smooth theme transition
-    const tl = gsap.timeline();
-
-    // Fade out current preview
-    tl.to('#example', {
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.out"
-    });
-
-    // Apply new configuration
-    tl.call(() => {
-        $size.val(config.size);
-        $font.val(config.font);
-        $stroke.val(config.stroke || 0);
-        $shadow.val(config.shadow || 0);
-        $bots.prop('checked', config.bots);
-        $commands.prop('checked', config.hide_commands);
-        $badges.prop('checked', config.hide_badges);
-        $animate.prop('checked', config.animate);
-        $small_caps.prop('checked', config.small_caps);
-
-        if (config.fade) {
-            $fade_bool.prop('checked', true);
-            $fade.val(config.fade);
-            $fade.removeClass('hidden');
-            $fade_seconds.removeClass('hidden');
-        } else {
-            $fade_bool.prop('checked', false);
-            $fade.addClass('hidden');
-            $fade_seconds.addClass('hidden');
-        }
-
-        updatePreviewCSS();
-        badgesUpdate();
-    });
-
-    // Fade back in with new theme
-    tl.to('#example', {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.in"
-    });
-}
-
-function setPreviewCSSVariables(config) {
-    const root = document.documentElement.style;
-
-    // Size variables
-    const sizeConfigs = {
-        1: { // Small
-            fontSize: '20px',
-            lineHeight: '30px',
-            badgeSize: '16px',
-            badgeMarginRight: '2px',
-            badgeMarginBottom: '3px',
-            badgeLastMarginRight: '3px',
-            colonMarginRight: '8px',
-            cheerFontWeight: '700',
-            cheerMarginRight: '4px',
-            cheerEmoteMaxHeight: '25px',
-            cheerEmoteMarginBottom: '-6px',
-            emoteMaxWidth: '75px',
-            emoteHeight: '25px',
-            emoteMarginRight: '-3px',
-            emojiHeight: '22px'
-        },
-        2: { // Medium
-            fontSize: '34px',
-            lineHeight: '55px',
-            badgeSize: '28px',
-            badgeMarginRight: '4px',
-            badgeMarginBottom: '6px',
-            badgeLastMarginRight: '6px',
-            colonMarginRight: '14px',
-            cheerFontWeight: '600',
-            cheerMarginRight: '7px',
-            cheerEmoteMaxHeight: '42px',
-            cheerEmoteMarginBottom: '-10px',
-            emoteMaxWidth: '128px',
-            emoteHeight: '42px',
-            emoteMarginRight: '-6px',
-            emojiHeight: '39px'
-        },
-        3: { // Large
-            fontSize: '48px',
-            lineHeight: '75px',
-            badgeSize: '40px',
-            badgeMarginRight: '5px',
-            badgeMarginBottom: '8px',
-            badgeLastMarginRight: '8px',
-            colonMarginRight: '20px',
-            cheerFontWeight: '500',
-            cheerMarginRight: '10px',
-            cheerEmoteMaxHeight: '60px',
-            cheerEmoteMarginBottom: '-15px',
-            emoteMaxWidth: '180px',
-            emoteHeight: '60px',
-            emoteMarginRight: '-8px',
-            emojiHeight: '55px'
-        }
-    };
-
-    const sizeConfig = sizeConfigs[config.size] || sizeConfigs[3];
-    Object.entries(sizeConfig).forEach(([key, value]) => {
-        root.setProperty(`--chat-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`, value);
-    });
-
-    // Font variables
-    const fontConfigs = {
-        0: "'Baloo Tammudu 2', cursive",
-        1: "'Segoe UI', sans-serif",
-        2: "'Roboto', sans-serif",
-        3: "'Lato', sans-serif",
-        4: "'Noto Sans JP', sans-serif",
-        5: "'Source Code Pro', monospace",
-        6: "'Impact', sans-serif",
-        7: "'Comfortaa', cursive",
-        8: "'Dancing Script', cursive",
-        9: "'Indie Flower', cursive",
-        10: "'Press Start 2P', monospace",
-        11: "'Wallpoet', cursive"
-    };
-    root.setProperty('--chat-font-family', fontConfigs[config.font] || fontConfigs[0]);
-
-    // Stroke variables
-    const strokeConfigs = {
-        0: 'none',
-        1: '1px black', // Thin
-        2: '2px black', // Medium
-        3: '3px black', // Thick
-        4: '4px black'  // Thicker
-    };
-    root.setProperty('--chat-text-stroke', strokeConfigs[config.stroke] || 'none');
-
-    // Shadow variables
-    const shadowConfigs = {
-        0: 'none',
-        1: '1px 1px 2px black', // Small
-        2: '2px 2px 4px black', // Medium
-        3: '2px 2px 6px black'  // Large
-    };
-    root.setProperty('--chat-text-shadow', shadowConfigs[config.shadow] || 'none');
-
-    // Font variant
-    root.setProperty('--chat-font-variant', config.smallCaps ? 'small-caps' : 'normal');
-}
-
-function generateURL(event) {
-    event.preventDefault();
-
-    const channel = $channel.val();
-    const generatedUrl = 'overlay.html?config=' + channel;
-
-    let data = {
-        size: $size.val(),
-        font: $font.val(),
-        stroke: ($stroke.val() != '0' ? $stroke.val() : false),
-        shadow: ($shadow.val() != '0' ? $shadow.val() : false),
-        bots: $bots.is(':checked'),
-        hide_commands: $commands.is(':checked'),
-        hide_badges: $badges.is(':checked'),
-        animate: $animate.is(':checked'),
-        fade: ($fade_bool.is(':checked') ? $fade.val() : false),
-        small_caps: $small_caps.is(':checked')
-    };
-
-    localStorage.setItem('jchat_config_' + channel, JSON.stringify(data));
-
-    $url.val(generatedUrl);
-
-    $generator.addClass('hidden');
-    $result.removeClass('hidden');
-}
-
-function changePreview(event) {
-    if ($example.hasClass("white")) {
-        $example.removeClass("white");
-        $brightness.attr('src', "img/light.png");
+    if (config.fade) {
+      if (fadeBool) fadeBool.checked = true;
+      if (fade) fade.value = config.fade;
+      fade?.classList.remove('hidden');
+      fadeSeconds?.classList.remove('hidden');
     } else {
-        $example.addClass("white");
-        $brightness.attr('src', "img/dark.png");
+      if (fadeBool) fadeBool.checked = false;
+      fade?.classList.add('hidden');
+      fadeSeconds?.classList.add('hidden');
     }
-}
-
-function copyUrl(event) {
-    navigator.clipboard.writeText($url.val());
-
-    $alert.css('visibility', 'visible');
-    $alert.css('opacity', '1');
-}
-
-function showUrl(event) {
-    $alert.css('opacity', '0');
-    setTimeout(function() {
-        $alert.css('visibility', 'hidden');
-    }, 200);
-}
-
-function resetForm(event) {
-    $channel.val('');
-    $size.val('3');
-    $font.val('0');
-    $stroke.val('0');
-    $shadow.val('0');
-    $bots.prop('checked', false);
-    $commands.prop('checked', false);
-    $badges.prop('checked', false);
-    $animate.prop('checked', false);
-    $fade_bool.prop('checked', false);
-    $fade.addClass('hidden');
-    $fade_seconds.addClass('hidden');
-    $fade.val("30");
-    $small_caps.prop('checked', false);
 
     updatePreviewCSS();
     badgesUpdate();
-    if ($example.hasClass("white"))
-        changePreview();
-
-    $result.addClass('hidden');
-    $generator.removeClass('hidden');
-    showUrl();
+    // Set a theme-level nickname color for the preview if provided
+    try {
+      const root = document.documentElement.style;
+      if (theme.nick_color) {
+        root.setProperty('--theme-nick-color', theme.nick_color);
+      } else {
+        // remove any previously set theme color
+        root.removeProperty('--theme-nick-color');
+      }
+    } catch (e) {
+      console.warn('Failed to set theme nick color', e);
+    }
+  });
+  tl.to('#example', { opacity: 1, duration: 0.5, ease: 'power2.in' });
 }
 
-const $generator = $("form[name='generator']");
-const $channel = $('input[name="channel"]');
-const $theme = $('#theme');
-const $animate = $('input[name="animate"]');
-const $bots = $('input[name="bots"]');
-const $fade_bool = $("input[name='fade_bool']");
-const $fade = $("input[name='fade']");
-const $fade_seconds = $("#fade_seconds");
-const $commands = $("input[name='commands']");
-const $small_caps = $("input[name='small_caps']");
-const $badges = $("input[name='badges']");
-const $size = $("select[name='size']");
-const $font = $("select[name='font']");
-const $stroke = $("select[name='stroke']");
-const $shadow = $("select[name='shadow']");
-const $brightness = $("#brightness");
-const $example = $('#example');
-const $result = $("#result");
-const $url = $('#url');
-const $alert = $("#alert");
-const $reset = $("#reset");
+function setPreviewCSSVariables(config) {
+  const root = document.documentElement.style;
+  const sizeConfigs = {
+    1: { fontSize: '20px', lineHeight: '30px', badgeSize: '16px', badgeMarginRight: '2px', badgeMarginBottom: '3px', badgeLastMarginRight: '3px', colonMarginRight: '8px', cheerFontWeight: '700', cheerMarginRight: '4px', cheerEmoteMaxHeight: '25px', cheerEmoteMarginBottom: '-6px', emoteMaxWidth: '75px', emoteHeight: '25px', emoteMarginRight: '-3px', emojiHeight: '22px' },
+    2: { fontSize: '34px', lineHeight: '55px', badgeSize: '28px', badgeMarginRight: '4px', badgeMarginBottom: '6px', badgeLastMarginRight: '6px', colonMarginRight: '14px', cheerFontWeight: '600', cheerMarginRight: '7px', cheerEmoteMaxHeight: '42px', cheerEmoteMarginBottom: '-10px', emoteMaxWidth: '128px', emoteHeight: '42px', emoteMarginRight: '-6px', emojiHeight: '39px' },
+    3: { fontSize: '48px', lineHeight: '75px', badgeSize: '40px', badgeMarginRight: '5px', badgeMarginBottom: '8px', badgeLastMarginRight: '8px', colonMarginRight: '20px', cheerFontWeight: '500', cheerMarginRight: '10px', cheerEmoteMaxHeight: '60px', cheerEmoteMarginBottom: '-15px', emoteMaxWidth: '180px', emoteHeight: '60px', emoteMarginRight: '-8px', emojiHeight: '55px' }
+  };
 
-$fade_bool.change(fadeOption);
-$size.change(updatePreviewCSS);
-$font.change(updatePreviewCSS);
-$stroke.change(updatePreviewCSS);
-$shadow.change(updatePreviewCSS);
-$small_caps.change(updatePreviewCSS);
-$theme.change(function() {
-    applyTheme($(this).val());
+  const sizeConfig = sizeConfigs[config.size] || sizeConfigs[3];
+  Object.entries(sizeConfig).forEach(([key, value]) => root.setProperty(`--chat-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`, value));
+
+  const fontConfigs = { 0: "'Baloo Tammudu 2', cursive", 1: "'Segoe UI', sans-serif", 2: "'Roboto', sans-serif", 3: "'Lato', sans-serif", 4: "'Noto Sans JP', sans-serif", 5: "'Source Code Pro', monospace", 6: "'Impact', sans-serif", 7: "'Comfortaa', cursive", 8: "'Dancing Script', cursive", 9: "'Indie Flower', cursive", 10: "'Press Start 2P', monospace", 11: "'Wallpoet', cursive" };
+  root.setProperty('--chat-font-family', fontConfigs[config.font] || fontConfigs[0]);
+
+  const strokeConfigs = { 0: 'none', 1: '1px black', 2: '2px black', 3: '3px black', 4: '4px black' };
+  root.setProperty('--chat-text-stroke', strokeConfigs[config.stroke] || 'none');
+
+  const shadowConfigs = { 0: 'none', 1: '1px 1px 2px black', 2: '2px 2px 4px black', 3: '2px 2px 6px black' };
+  root.setProperty('--chat-text-shadow', shadowConfigs[config.shadow] || 'none');
+
+  root.setProperty('--chat-font-variant', config.smallCaps ? 'small-caps' : 'normal');
+}
+
+function generateURL(e) {
+  e.preventDefault();
+  const channel = channelInput?.value;
+  const generatedUrl = 'overlay.html?config=' + encodeURIComponent(channel);
+
+  const data = {
+    size: sizeSelect?.value,
+    font: fontSelect?.value,
+    stroke: (strokeSelect?.value !== '0' ? strokeSelect?.value : false),
+    shadow: (shadowSelect?.value !== '0' ? shadowSelect?.value : false),
+    bots: botsCheckbox?.checked,
+    hide_commands: commandsCheckbox?.checked,
+    hide_badges: badgesCheckbox?.checked,
+    animate: animateCheckbox?.checked,
+    fade: (fadeBool?.checked ? fade?.value : false),
+    small_caps: smallCapsCheckbox?.checked
+  };
+  // include selected theme so the overlay can apply palette-based nick colors
+  if (themeSelect?.value) data.theme = themeSelect.value;
+
+  localStorage.setItem('jchat_config_' + channel, JSON.stringify(data));
+  if (urlInput) urlInput.value = generatedUrl;
+
+  if (generatorForm) generatorForm.classList.add('hidden');
+  if (resultDiv) resultDiv.classList.remove('hidden');
+}
+
+function changePreview() {
+  if (exampleDiv?.classList.contains('white')) {
+    exampleDiv.classList.remove('white');
+    if (brightnessImg) brightnessImg.src = 'img/light.png';
+  } else {
+    exampleDiv?.classList.add('white');
+    if (brightnessImg) brightnessImg.src = 'img/dark.png';
+  }
+}
+
+function copyUrl() {
+  if (urlInput) navigator.clipboard.writeText(urlInput.value).catch(()=>{});
+  if (alertDiv) {
+    alertDiv.style.visibility = 'visible';
+    alertDiv.style.opacity = '1';
+  }
+}
+
+function showUrl() {
+  if (alertDiv) {
+    alertDiv.style.opacity = '0';
+    setTimeout(() => { alertDiv.style.visibility = 'hidden'; }, 200);
+  }
+}
+
+function resetForm() {
+  if (channelInput) channelInput.value = '';
+  if (sizeSelect) sizeSelect.value = '3';
+  if (fontSelect) fontSelect.value = '0';
+  if (strokeSelect) strokeSelect.value = '0';
+  if (shadowSelect) shadowSelect.value = '0';
+  if (botsCheckbox) botsCheckbox.checked = false;
+  if (commandsCheckbox) commandsCheckbox.checked = false;
+  if (badgesCheckbox) badgesCheckbox.checked = false;
+  if (animateCheckbox) animateCheckbox.checked = false;
+  if (fadeBool) fadeBool.checked = false;
+  if (fade) {
+    fade.classList.add('hidden');
+    fade.value = '30';
+  }
+  if (fadeSeconds) fadeSeconds.classList.add('hidden');
+  if (smallCapsCheckbox) smallCapsCheckbox.checked = false;
+
+  updatePreviewCSS();
+  badgesUpdate();
+  if (exampleDiv?.classList.contains('white')) changePreview();
+
+  if (resultDiv) resultDiv.classList.add('hidden');
+  if (generatorForm) generatorForm.classList.remove('hidden');
+  showUrl();
+}
+
+// Element bindings
+const generatorForm = qs("form[name='generator']");
+const channelInput = qs('input[name="channel"]');
+const themeSelect = qs('#theme');
+const animateCheckbox = qs('input[name="animate"]');
+const botsCheckbox = qs('input[name="bots"]');
+const fadeBool = qs("input[name='fade_bool']");
+const fade = qs("input[name='fade']");
+const fadeSeconds = qs('#fade_seconds');
+const commandsCheckbox = qs("input[name='commands']");
+const smallCapsCheckbox = qs("input[name='small_caps']");
+const badgesCheckbox = qs("input[name='badges']");
+const sizeSelect = qs("select[name='size']");
+const fontSelect = qs("select[name='font']");
+const strokeSelect = qs("select[name='stroke']");
+const shadowSelect = qs("select[name='shadow']");
+const brightnessImg = qs('#brightness');
+const exampleDiv = qs('#example');
+const resultDiv = qs('#result');
+const urlInput = qs('#url');
+const alertDiv = qs('#alert');
+const resetBtn = qs('#reset');
+const customThemeName = qs('#custom_theme_name');
+
+// Event listeners
+fadeBool?.addEventListener('change', fadeOption);
+sizeSelect?.addEventListener('change', updatePreviewCSS);
+fontSelect?.addEventListener('change', updatePreviewCSS);
+strokeSelect?.addEventListener('change', updatePreviewCSS);
+shadowSelect?.addEventListener('change', updatePreviewCSS);
+smallCapsCheckbox?.addEventListener('change', updatePreviewCSS);
+themeSelect?.addEventListener('change', () => {
+  const val = themeSelect?.value;
+  if (!val) {
+    // clear theme nick color when no theme is selected
+    try { document.documentElement.style.removeProperty('--theme-nick-color'); } catch (e) {}
+  }
+  applyTheme(val);
 });
-$badges.change(badgesUpdate);
-$generator.submit(generateURL);
-$brightness.click(changePreview);
-$url.click(copyUrl);
-$alert.click(showUrl);
-$reset.click(resetForm);
-$('#save_theme').click(saveCustomTheme);
+badgesCheckbox?.addEventListener('change', badgesUpdate);
+generatorForm?.addEventListener('submit', generateURL);
+brightnessImg?.addEventListener('click', changePreview);
+urlInput?.addEventListener('click', copyUrl);
+alertDiv?.addEventListener('click', showUrl);
+resetBtn?.addEventListener('click', (e) => { e.preventDefault(); resetForm(); });
+qs('#save_theme')?.addEventListener('click', (e) => { e.preventDefault(); saveCustomTheme(); });
 
 // Initialize theme selector
 populateThemeSelector();
